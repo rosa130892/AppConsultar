@@ -1,0 +1,151 @@
+<!DOCTYPE html-->
+    <html>
+         <head>
+       
+        <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
+        <script src="js/jquery.js"></script>
+        <script src="js/jquery.mobile-1.4.5.min.js"></script>
+        <title>Aplicación Móvil</title>
+        <script type="text/javascript">
+          $(document).ready(function inicio(){
+               
+               
+               
+               var btnGuardar=$("#guardar");
+               btnGuardar.click(function guardar(){
+              var nom=$("#nombre").val();
+              var edad=$("#edad").val();
+              var promedio=parseInt($("#promedio").val());
+           
+              $.ajax({
+               type:"POST",
+               url:"guardarDatos.php",
+               data:"nombre="+nom+"&edad="+edad+"&promedio="+promedio,
+               success:registro
+               });
+              function registro(datos) {
+             alert(datos);
+              }
+          });
+               
+          var btnConsulta=$("#consultar");
+          btnConsulta.click(function cons(){
+            $.ajax({
+            type:"POST",
+            url:"consultaBD.php",
+            data:"",
+            success:consultaDatos
+               });   
+             function consultaDatos(datos){
+             var respDatos=$.parseJSON(datos);
+               
+               var respuesta=$("#resconsulta");
+               respuesta.html("");
+               respuesta.append('<table id="tab" border="1">');
+               var tabla=$("#tab");
+               tabla.html("<tr><th>ID</th><th>Nombre</th><th>Edad</th><th>Promedio</th></tr>");
+               for(var i  in respDatos){
+                   tabla.append("<tr><td>"+respDatos[i].Id_Estudiante+"</td>"
+                  + "<td>"+respDatos[i].Nombre+"</td>"
+                  + "<td>"+respDatos[i].Edad+"</td>"
+                  + "<td>"+respDatos[i].Promedio+"</td></tr>");
+               }
+               tabla.append("</table>");
+               }  
+  
+               });
+               });
+        </script>
+        <style type="text/css">
+          p{
+               text-align: center;
+          }
+          
+        </style>
+         </head>
+         <body>
+          
+           <!-----------------------------------PRINCIPAL---------------------------------------->
+          
+           <div data-role="page" id="Principal">
+               
+               <div data-role="header">
+                   <p>Datos de Alumno</p> 
+                       
+               </div>
+               <div data-role="content">
+                    <div >
+                         <ul data-role="listview">
+                              
+                              <li><a href="#registro">Registrar</a></li>
+                              <li> <a href="#consulta">Consultar</a></li>
+                         </ul>
+                         
+                    
+               </div>
+               </div>
+               <div data-role="footer">
+                    <p>Derechos reservados</p>
+                    
+               </div>
+               
+               
+          </div>
+           
+           <!------------------------------------REGISTRO DE DATOS------------------------------------------->
+          
+          <div data-role="page" id="registro">
+               
+               <div data-role="header">
+                   <p>Registrar Datos</p> 
+                       
+               </div>
+               <div data-role="content">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre">
+                    <label for="nombre">Edad</label>
+                    <input type="text" id="edad">
+                    <label for="nombre">Promedio</label>
+                    <input type="text" id="promedio">
+                    <input type="button" id="guardar" value="Guardar">
+                    
+               </div>
+               <div data-role="footer">
+                    <p>Derechos reservados</p>
+                    
+               </div>
+               
+               
+          </div>
+          
+          
+          <!----------------------------------------CONSULTA-------------------------------------------------------------->
+          
+            <div data-role="page" id="consulta">
+               
+               <div data-role="header">
+                   <p>Consultar Datos</p> 
+                       
+               </div>
+               <div data-role="content">
+                    
+                    <input type="button" id="consultar" value="Consultar">
+                         <div id="resconsulta">
+                              
+                              
+                         </div>
+                    
+               </div>
+               <div data-role="footer">
+                    <p>Derechos reservados</p>
+                    
+               </div>
+               
+               
+          </div>
+          
+         </body>
+    
+           
+       
+</html>
