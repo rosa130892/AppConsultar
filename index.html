@@ -19,7 +19,7 @@
            
               $.ajax({
                type:"POST",
-               url:"guardarDatos.php",
+               url:"http://rosaisc.260mb.net/guardarDatos.php",
                data:"nombre="+nom+"&edad="+edad+"&promedio="+promedio,
                success:registro
                });
@@ -32,7 +32,7 @@
           btnConsulta.click(function cons(){
             $.ajax({
             type:"POST",
-            url:"consultaBD.php",
+            url:"http://rosaisc.260mb.net/consultaBD.php",
             data:"",
             success:consultaDatos
                });   
